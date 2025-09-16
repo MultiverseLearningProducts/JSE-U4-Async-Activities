@@ -1,6 +1,6 @@
-# Unit 4: Package Organization, Module System, and Modern Interface Features
+# Unit 4: Package Organization, Module System, Interface Contracts, and Build Tools
 
-This project demonstrates professional Java package organization, the Java Platform Module System (JPMS), interface contracts, and modern Java interface features including default and static methods.
+This project demonstrates professional Java package organization, the Java Platform Module System (JPMS), interface contracts, modern interface features, and Gradle build tool usage.
 
 ## Project Structure
 
@@ -17,6 +17,13 @@ unit-4-work/
 │           │   └── DigitalProduct.java (implements Describable)
 │           └── main/ (Internal package)
 │               └── Store.java (Demonstrates modern interface usage)
+├── gradle-demo/ (Gradle build tool demonstration)
+│   ├── build.gradle.kts
+│   ├── settings.gradle.kts
+│   ├── gradlew
+│   ├── gradle/wrapper/
+│   └── src/main/java/com/example/gradle/
+│       └── App.java
 ├── README.md
 └── .gitignore
 ```
@@ -32,7 +39,80 @@ unit-4-work/
 - Understand modern Java interface features (Java 8+)
 - Learn default methods and static methods in interfaces
 - Understand interface evolution and backward compatibility
+- Master Gradle build tool for professional Java development
+- Learn dependency management and automated builds
 - Organize code for professional development
+
+## Gradle Build Tool
+
+### What is Gradle?
+Gradle is a modern build automation tool that:
+- **Automates** the build process (compile, test, package)
+- **Manages** dependencies and external libraries
+- **Integrates** with testing frameworks
+- **Provides** consistent builds across environments
+- **Scales** from simple projects to enterprise applications
+
+### Key Gradle Files
+
+#### build.gradle.kts
+The main build script that defines:
+```kotlin
+plugins {
+    application  // For CLI applications
+    java         // For Java support
+}
+
+repositories {
+    mavenCentral()  // Dependency repository
+}
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    implementation("com.google.guava:guava:32.1.3-jre")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
+application {
+    mainClass.set("com.example.gradle.App")
+}
+```
+
+#### settings.gradle.kts
+Project configuration:
+```kotlin
+rootProject.name = "gradle-demo"
+```
+
+#### gradlew
+Gradle wrapper script that:
+- Downloads the correct Gradle version
+- Ensures consistent builds across environments
+- No need to install Gradle globally
+
+### Common Gradle Commands
+
+```bash
+# Build the project (compile + test)
+./gradlew build
+
+# Run the application
+./gradlew run
+
+# Run tests only
+./gradlew test
+
+# Clean build artifacts
+./gradlew clean
+
+# List available tasks
+./gradlew tasks
+```
 
 ## Modern Interface Features (Java 8+)
 
@@ -61,24 +141,9 @@ public interface Describable {
 - **Interface Evolution**: Add functionality without breaking existing code
 - **Backward Compatibility**: Existing implementations automatically get new features
 
-## Interface Evolution
-
-### Traditional Interfaces (Pre-Java 8)
-- **Abstract Methods Only**: All methods must be implemented
-- **Breaking Changes**: Adding new methods breaks existing implementations
-- **No Default Implementation**: Each class must provide its own implementation
-- **Limited Evolution**: Difficult to add new functionality
-
-### Modern Interfaces (Java 8+)
-- **Abstract Methods**: Must be implemented by all classes
-- **Default Methods**: Optional implementation, can be overridden
-- **Static Methods**: Belong to interface, not instances
-- **Non-Breaking Evolution**: Add new functionality without breaking existing code
-- **Utility Methods**: Interface-level functionality
-
 ## How to Run
 
-### Compile and Run
+### Traditional Java Compilation
 ```bash
 # Compile all Java files
 javac src/main/java/com/example/contracts/*.java src/main/java/com/example/model/*.java src/main/java/com/example/main/*.java
@@ -87,13 +152,19 @@ javac src/main/java/com/example/contracts/*.java src/main/java/com/example/model
 java -cp src/main/java com.example.main.Store
 ```
 
-### Module System (Alternative)
+### Gradle Build Tool
 ```bash
-# Compile with module system
-javac --module-source-path src/main/java -d out src/main/java/com.example.store/module-info.java src/main/java/com.example.store/com/example/contracts/*.java src/main/java/com.example.store/com/example/model/*.java src/main/java/com.example.store/com/example/main/*.java
+# Navigate to Gradle project
+cd gradle-demo
 
-# Run with module system
-java --module-path out --module com.example.store/com.example.main.Store
+# Build the project
+./gradlew build
+
+# Run the application
+./gradlew run
+
+# Run tests
+./gradlew test
 ```
 
 ## Package Structure
@@ -110,6 +181,10 @@ Contains all data model classes that are part of the public API:
 ### com.example.main (Internal)
 Contains application entry point (not exported):
 - **Store**: Main class demonstrating modern interface features
+
+### com.example.gradle (Gradle Demo)
+Contains Gradle demonstration application:
+- **App**: Main class showing Gradle functionality
 
 ## Key Concepts
 
@@ -140,6 +215,14 @@ Contains application entry point (not exported):
 - **Interface Evolution**: Add functionality without breaking existing code
 - **Backward Compatibility**: Existing implementations automatically inherit new features
 - **Optional Override**: Classes can override default methods if needed
+
+### Gradle Build Tool
+- **Build Automation**: Compile, test, and package automatically
+- **Dependency Management**: Download and manage external libraries
+- **Testing Integration**: Run tests as part of build process
+- **Cross-Platform**: Works on Windows, macOS, and Linux
+- **Plugin Ecosystem**: Extensible with plugins
+- **IDE Integration**: Works with IntelliJ IDEA, Eclipse, VS Code
 
 ## Professional Benefits
 
@@ -173,13 +256,13 @@ Contains application entry point (not exported):
 5. **Optional Override**: Classes can override default methods if needed
 6. **Non-Breaking Changes**: Essential for maintaining large codebases
 
-## Interface Method Types Comparison
-
-| Method Type | When Introduced | Implementation | Override | Usage |
-|-------------|----------------|----------------|----------|-------|
-| **Abstract** | Java 1.0 | Must implement | N/A | Contract definition |
-| **Default** | Java 8 | Optional, provided | Can override | Interface evolution |
-| **Static** | Java 8 | Interface-level | Cannot override | Utility methods |
+### Gradle Build Tool
+1. **Automation**: Eliminates manual build steps
+2. **Consistency**: Same build process everywhere
+3. **Scalability**: Works for simple and complex projects
+4. **Integration**: Connects with IDEs and CI/CD pipelines
+5. **Maintainability**: Easy to understand and modify build logic
+6. **Professional Development**: Industry standard for Java projects
 
 ## Learning Progression
 
@@ -203,6 +286,11 @@ Contains application entry point (not exported):
 - Interface evolution and backward compatibility
 - Modern Java development practices
 
+### 4-5-Solution: Gradle Build Tool
+- Build automation and dependency management
+- Professional development workflow
+- Industry-standard build practices
+
 ## Success Criteria
 
 ✅ All Java files have correct package declarations  
@@ -214,17 +302,21 @@ Contains application entry point (not exported):
 ✅ Interface methods are properly implemented  
 ✅ Default methods are defined and working  
 ✅ Static methods are defined and working  
-✅ Code compiles and runs with modern interface features  
+✅ Gradle project is properly configured  
+✅ Gradle build and run commands work  
+✅ Dependencies are managed automatically  
+✅ Tests are integrated with build process  
 ✅ Demonstrates professional organization at all levels  
 
 ## Next Steps
 
-After mastering package organization, module system, interface contracts, and modern interface features, you'll be ready for:
+After mastering package organization, module system, interface contracts, modern interface features, and Gradle build tools, you'll be ready for:
 - Abstract classes and advanced OOP concepts
 - Exception handling and error management
 - File I/O operations
 - Design patterns (Strategy, Factory, Observer)
 - Lambda expressions and functional programming
 - Stream API and modern Java collections
-- Enterprise application development
 - Spring Framework and dependency injection
+- Enterprise application development
+- CI/CD pipeline integration
