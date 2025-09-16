@@ -6,9 +6,9 @@ import com.example.contracts.Describable;
 import java.util.ArrayList;
 
 /**
- * Store class - Demonstrates package organization, module system, and interface contracts.
+ * Store class - Demonstrates package organization, module system, interface contracts, and error handling.
  * This class shows how to use classes from different packages within a module,
- * and demonstrates the power of programming to interfaces with modern Java features.
+ * and demonstrates the power of programming to interfaces with robust error handling.
  * 
  * @author Student Developer
  * @version 1.0.0
@@ -16,19 +16,13 @@ import java.util.ArrayList;
 public class Store {
     
     /**
-     * Main method to demonstrate package organization, module system, and interface contracts.
+     * Main method to demonstrate package organization, module system, interface contracts, and error handling.
      * 
      * @param args command line arguments (not used)
      */
     public static void main(String[] args) {
-        System.out.println("=== Modern Java Interface Features Demo ===");
-        System.out.println("Demonstrating default methods and static methods in interfaces\n");
-        
-        // Demonstrate static method call on interface
-        System.out.println("=== Static Method Demonstration ===");
-        System.out.println("Application Name: " + Describable.getApplicationName());
-        System.out.println("Header: " + Describable.getHeader());
-        System.out.println();
+        System.out.println("=== Graceful Error Handling Demo ===");
+        System.out.println("Demonstrating try-catch blocks and exception handling for robust applications\n");
         
         // Create various Product and DigitalProduct objects
         Product laptop = new Product("Gaming Laptop", 1299.99, "LAP-001");
@@ -58,77 +52,52 @@ public class Store {
 
         System.out.println("Shopping cart now contains " + shoppingCart.size() + " items\n");
 
-        System.out.println("=== Default Method Demonstration ===");
-        System.out.println("Using the default printDescription() method from the Describable interface:\n");
+        System.out.println("=== Error Handling Demonstration ===");
+        System.out.println("Testing exception handling with invalid input:\n");
 
-        // Demonstrate default method - all products automatically have this method
+        // Demonstrate error handling with try-catch blocks
+        demonstrateErrorHandling();
+
+        System.out.println("=== Processing the Shopping Cart with Error Handling ===");
+        System.out.println("Using try-catch blocks to handle potential errors gracefully:\n");
+
+        // Use a for-each loop to iterate through the shoppingCart and call interface methods
         int itemNumber = 1;
         for (Product item : shoppingCart) {
             System.out.println("--- Shopping Cart Item " + itemNumber++ + " ---");
-            item.printDescription(); // Default method from interface
+            try {
+                // This could potentially throw an exception if price is negative
+                item.displayInfo();
+                System.out.println("✅ Product processed successfully");
+            } catch (Exception e) {
+                System.out.println("❌ Error processing product: " + e.getMessage());
+            }
             System.out.println();
         }
 
-        System.out.println("=== Enhanced Interface Features ===");
-        System.out.println("Demonstrating additional default methods:\n");
+        System.out.println("=== Exception Handling Benefits ===");
+        System.out.println("1. Graceful Degradation: Application continues running even with errors");
+        System.out.println("2. User-Friendly Messages: Clear error messages instead of crashes");
+        System.out.println("3. Debugging Information: Exceptions provide detailed error information");
+        System.out.println("4. Input Validation: Prevents invalid data from corrupting the application");
+        System.out.println("5. Professional Quality: Robust applications handle errors gracefully");
+        System.out.println("6. Better User Experience: Users get helpful feedback instead of crashes\n");
 
-        // Demonstrate additional default methods
-        for (Product item : shoppingCart) {
-            System.out.println("Short Summary (50 chars): " + item.getShortSummary(50));
-            System.out.println("Short Summary (100 chars): " + item.getShortSummary(100));
-            System.out.println();
-        }
-
-        System.out.println("=== Interface Evolution Benefits ===");
-        System.out.println("1. Default Methods: Add new functionality without breaking existing code");
-        System.out.println("2. Static Methods: Provide utility methods that belong to the interface");
-        System.out.println("3. Backward Compatibility: Existing implementations automatically get new features");
-        System.out.println("4. Optional Override: Classes can override default methods if needed");
-        System.out.println("5. Interface Utility: Static methods provide interface-level functionality");
-        System.out.println("6. Code Reuse: Default methods reduce code duplication\n");
-
-        System.out.println("=== Processing the Shopping Cart with Enhanced Interface ===");
-        System.out.println("Using both abstract and default methods from the Describable interface:\n");
-
-        // Use a for-each loop to iterate through the shoppingCart and call interface methods
-        itemNumber = 1;
-        for (Product item : shoppingCart) {
-            System.out.println("--- Shopping Cart Item " + itemNumber++ + " ---");
-            System.out.println("=== Product Information ===");
-            System.out.println("Name: " + item.getName());
-            System.out.println("Price: $" + item.getPrice());
-            System.out.println("SKU: " + item.getSku());
-            System.out.println("Type: " + (item instanceof DigitalProduct ? "Digital Product" : "Standard Product"));
-            System.out.println("Description: " + item.getDescription());
-            System.out.println("Default Method Output:");
-            item.printDescription(); // Using the default method
-            System.out.println();
-        }
-
-        System.out.println("=== Modern Java Features Comparison ===");
-        System.out.println("Traditional Interface Methods:");
-        System.out.println("  - Abstract methods: Must be implemented by all classes");
-        System.out.println("  - No default implementation provided");
-        System.out.println("  - Breaking changes when adding new methods");
-        System.out.println();
-        System.out.println("Modern Interface Methods (Java 8+):");
-        System.out.println("  - Abstract methods: Must be implemented by all classes");
-        System.out.println("  - Default methods: Optional implementation, can be overridden");
-        System.out.println("  - Static methods: Belong to interface, not instances");
-        System.out.println("  - Non-breaking evolution of interfaces");
-        System.out.println("  - Utility methods at interface level\n");
-
-        // Calculate total cart value
+        // Calculate total cart value with error handling
         double totalCartValue = 0;
         int physicalProductCount = 0;
         int digitalProductCount = 0;
 
         for (Product item : shoppingCart) {
-            totalCartValue += item.getPrice();
-            if (item instanceof DigitalProduct) {
-                digitalProductCount++;
-            } else {
-                physicalProductCount++;
+            try {
+                totalCartValue += item.getPrice();
+                if (item instanceof DigitalProduct) {
+                    digitalProductCount++;
+                } else {
+                    physicalProductCount++;
+                }
+            } catch (Exception e) {
+                System.out.println("⚠️  Warning: Could not process item for total calculation: " + e.getMessage());
             }
         }
 
@@ -139,28 +108,94 @@ public class Store {
         System.out.println("Total Items: " + shoppingCart.size() + "\n");
 
         System.out.println("=== Key Learning Points ===");
-        System.out.println("1. Default methods allow interfaces to evolve without breaking existing code");
-        System.out.println("2. Static methods provide utility functionality at the interface level");
-        System.out.println("3. Classes automatically inherit default methods but can override them");
-        System.out.println("4. Static methods are called directly on the interface, not on instances");
-        System.out.println("5. This enables powerful interface evolution and code reuse");
-        System.out.println("6. Essential for building maintainable, evolvable software systems");
+        System.out.println("1. Always validate input data before processing");
+        System.out.println("2. Use try-catch blocks to handle potential exceptions");
+        System.out.println("3. Throw meaningful exceptions with descriptive messages");
+        System.out.println("4. Provide user-friendly error messages in catch blocks");
+        System.out.println("5. Design applications to fail gracefully, not crash");
+        System.out.println("6. Exception handling is essential for professional applications");
     }
 
     /**
-     * Demonstrates how to program to interfaces with modern Java features.
+     * Demonstrates error handling with try-catch blocks.
+     * This method shows how to handle exceptions gracefully.
+     */
+    private static void demonstrateErrorHandling() {
+        System.out.println("--- Testing Valid Input ---");
+        try {
+            Product validProduct = new Product("Test Product", 99.99, "TEST-001");
+            System.out.println("✅ Valid product created successfully: " + validProduct.getName());
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Unexpected error: " + e.getMessage());
+        }
+
+        System.out.println("\n--- Testing Invalid Price Input ---");
+        try {
+            Product invalidProduct = new Product("Invalid Product", -50.00, "INVALID-001");
+            System.out.println("❌ This should not print - product should not be created");
+        } catch (IllegalArgumentException e) {
+            System.out.println("✅ Caught expected exception: " + e.getMessage());
+            System.out.println("✅ Error: The price you entered is invalid.");
+        }
+
+        System.out.println("\n--- Testing Invalid File Size Input ---");
+        try {
+            DigitalProduct invalidDigital = new DigitalProduct("Invalid Digital", 29.99, "DIGITAL-001",
+                                                            "https://example.com", "PDF", -10.0);
+            System.out.println("❌ This should not print - digital product should not be created");
+        } catch (IllegalArgumentException e) {
+            System.out.println("✅ Caught expected exception: " + e.getMessage());
+            System.out.println("✅ Error: The file size you entered is invalid.");
+        }
+
+        System.out.println("\n--- Testing Price Update with Error Handling ---");
+        Product testProduct = new Product("Test Product", 50.00, "TEST-002");
+        System.out.println("Original price: $" + testProduct.getPrice());
+        
+        try {
+            testProduct.setPrice(-25.00);
+            System.out.println("❌ This should not print - price should not be updated");
+        } catch (IllegalArgumentException e) {
+            System.out.println("✅ Caught expected exception: " + e.getMessage());
+            System.out.println("✅ Error: The price you entered is invalid.");
+            System.out.println("Price remains unchanged: $" + testProduct.getPrice());
+        }
+
+        System.out.println("\n--- Testing File Size Update with Error Handling ---");
+        DigitalProduct testDigital = new DigitalProduct("Test Digital", 19.99, "DIGITAL-002",
+                                                      "https://example.com", "PDF", 5.0);
+        System.out.println("Original file size: " + testDigital.getFileSizeMB() + " MB");
+        
+        try {
+            testDigital.setFileSizeMB(-2.0);
+            System.out.println("❌ This should not print - file size should not be updated");
+        } catch (IllegalArgumentException e) {
+            System.out.println("✅ Caught expected exception: " + e.getMessage());
+            System.out.println("✅ Error: The file size you entered is invalid.");
+            System.out.println("File size remains unchanged: " + testDigital.getFileSizeMB() + " MB");
+        }
+
+        System.out.println();
+    }
+
+    /**
+     * Demonstrates how to program to interfaces with modern Java features and error handling.
      * This method accepts any object that implements Describable,
-     * showing the power of interface contracts with default methods.
+     * showing the power of interface contracts with robust error handling.
      * 
      * @param describable Any object that implements the Describable interface
      */
     private static void demonstrateDescribableContract(Describable describable) {
         System.out.println("=== Describable Contract Demonstration ===");
-        System.out.println("Object Name: " + describable.getName());
-        System.out.println("Object Description: " + describable.getDescription());
-        System.out.println("Default Method Output:");
-        describable.printDescription(); // Using the default method
-        System.out.println("This method works with ANY object that implements Describable!");
+        try {
+            System.out.println("Object Name: " + describable.getName());
+            System.out.println("Object Description: " + describable.getDescription());
+            System.out.println("Default Method Output:");
+            describable.printDescription(); // Using the default method
+            System.out.println("This method works with ANY object that implements Describable!");
+        } catch (Exception e) {
+            System.out.println("❌ Error processing describable object: " + e.getMessage());
+        }
         System.out.println();
     }
 }

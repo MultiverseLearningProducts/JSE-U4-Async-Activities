@@ -1,6 +1,6 @@
-# Unit 4: Package Organization, Module System, Interface Contracts, and Build Tools
+# Unit 4: Package Organization, Module System, Interface Contracts, Build Tools, and Error Handling
 
-This project demonstrates professional Java package organization, the Java Platform Module System (JPMS), interface contracts, modern interface features, and Gradle build tool usage.
+This project demonstrates professional Java package organization, the Java Platform Module System (JPMS), interface contracts, modern interface features, Gradle build tool usage, and robust error handling with exception management.
 
 ## Project Structure
 
@@ -12,16 +12,15 @@ unit-4-work/
 │       └── example/
 │           ├── contracts/ (Interface contracts with modern features)
 │           │   └── Describable.java (Default & static methods)
-│           ├── model/ (Exported package)
-│           │   ├── Product.java (implements Describable)
-│           │   └── DigitalProduct.java (implements Describable)
+│           ├── model/ (Exported package with error handling)
+│           │   ├── Product.java (implements Describable, throws exceptions)
+│           │   └── DigitalProduct.java (implements Describable, throws exceptions)
 │           └── main/ (Internal package)
-│               └── Store.java (Demonstrates modern interface usage)
+│               └── Store.java (Demonstrates try-catch blocks)
 ├── gradle-demo/ (Gradle build tool demonstration)
 │   ├── build.gradle.kts
 │   ├── settings.gradle.kts
 │   ├── gradlew
-│   ├── gradle/wrapper/
 │   └── src/main/java/com/example/gradle/
 │       └── App.java
 ├── README.md
@@ -41,7 +40,38 @@ unit-4-work/
 - Understand interface evolution and backward compatibility
 - Master Gradle build tool for professional Java development
 - Learn dependency management and automated builds
+- Master exception handling and error management
+- Learn try-catch blocks and exception throwing
+- Understand input validation and robust application design
 - Organize code for professional development
+
+## Error Handling and Exception Management
+
+### Exception Throwing
+```java
+public void setPrice(double price) {
+    if (price < 0) {
+        throw new IllegalArgumentException("Price cannot be negative.");
+    }
+    this.price = price;
+}
+```
+
+### Try-Catch Blocks
+```java
+try {
+    product.setPrice(-50.00);
+} catch (IllegalArgumentException e) {
+    System.out.println("Error: The price you entered is invalid.");
+}
+```
+
+### Key Concepts
+- **Exception Throwing**: `throw new IllegalArgumentException("message");`
+- **Try-Catch Blocks**: `try { ... } catch (Exception e) { ... }`
+- **Input Validation**: Check data before processing
+- **Graceful Degradation**: Application continues running with errors
+- **User-Friendly Messages**: Clear error feedback
 
 ## Gradle Build Tool
 
@@ -175,12 +205,12 @@ Contains interface definitions with modern Java features:
 
 ### com.example.model (Exported)
 Contains all data model classes that are part of the public API:
-- **Product**: Base product class implementing Describable
-- **DigitalProduct**: Extended product class with custom description
+- **Product**: Base product class implementing Describable with error handling
+- **DigitalProduct**: Extended product class with custom description and error handling
 
 ### com.example.main (Internal)
 Contains application entry point (not exported):
-- **Store**: Main class demonstrating modern interface features
+- **Store**: Main class demonstrating modern interface features and error handling
 
 ### com.example.gradle (Gradle Demo)
 Contains Gradle demonstration application:
@@ -224,6 +254,14 @@ Contains Gradle demonstration application:
 - **Plugin Ecosystem**: Extensible with plugins
 - **IDE Integration**: Works with IntelliJ IDEA, Eclipse, VS Code
 
+### Error Handling and Exception Management
+- **Exception Throwing**: `throw new IllegalArgumentException("message");`
+- **Try-Catch Blocks**: `try { ... } catch (Exception e) { ... }`
+- **Input Validation**: Check data before processing
+- **Graceful Degradation**: Application continues running with errors
+- **User-Friendly Messages**: Clear error feedback
+- **Robust Design**: Applications that don't crash on invalid input
+
 ## Professional Benefits
 
 ### Package Organization
@@ -264,6 +302,14 @@ Contains Gradle demonstration application:
 5. **Maintainability**: Easy to understand and modify build logic
 6. **Professional Development**: Industry standard for Java projects
 
+### Error Handling and Exception Management
+1. **Robust Applications**: Applications that don't crash on invalid input
+2. **User Experience**: Clear error messages instead of crashes
+3. **Debugging**: Exceptions provide detailed error information
+4. **Input Validation**: Prevents invalid data from corrupting the application
+5. **Professional Quality**: Essential for production applications
+6. **Graceful Degradation**: Application continues running even with errors
+
 ## Learning Progression
 
 ### 4-1-Solution: Package Organization
@@ -291,6 +337,11 @@ Contains Gradle demonstration application:
 - Professional development workflow
 - Industry-standard build practices
 
+### 4-6-Solution: Error Handling
+- Exception throwing and try-catch blocks
+- Input validation and robust design
+- Professional error management
+
 ## Success Criteria
 
 ✅ All Java files have correct package declarations  
@@ -306,17 +357,22 @@ Contains Gradle demonstration application:
 ✅ Gradle build and run commands work  
 ✅ Dependencies are managed automatically  
 ✅ Tests are integrated with build process  
+✅ Exception handling is implemented correctly  
+✅ Try-catch blocks handle errors gracefully  
+✅ Input validation prevents invalid data  
+✅ Applications fail gracefully instead of crashing  
 ✅ Demonstrates professional organization at all levels  
 
 ## Next Steps
 
-After mastering package organization, module system, interface contracts, modern interface features, and Gradle build tools, you'll be ready for:
+After mastering package organization, module system, interface contracts, modern interface features, Gradle build tools, and error handling, you'll be ready for:
 - Abstract classes and advanced OOP concepts
-- Exception handling and error management
-- File I/O operations
+- File I/O operations and data persistence
 - Design patterns (Strategy, Factory, Observer)
 - Lambda expressions and functional programming
 - Stream API and modern Java collections
 - Spring Framework and dependency injection
 - Enterprise application development
 - CI/CD pipeline integration
+- Advanced exception handling patterns
+- Logging and monitoring

@@ -7,6 +7,8 @@ import com.example.contracts.Describable;
  * This class demonstrates encapsulation with private fields and public getter/setter methods.
  * It also implements the Describable interface, showing how interfaces create contracts.
  * 
+ * This version includes robust error handling with exception throwing and validation.
+ * 
  * @author Student Developer
  * @version 1.0.0
  */
@@ -28,10 +30,11 @@ public class Product implements Describable {
      * @param name The name of the product.
      * @param price The price of the product.
      * @param sku The SKU (Stock Keeping Unit) of the product.
+     * @throws IllegalArgumentException if price is negative
      */
     public Product(String name, double price, String sku) {
         this.name = name;
-        this.price = price;
+        setPrice(price); // Use setter to ensure validation
         this.sku = sku;
     }
 
@@ -53,7 +56,18 @@ public class Product implements Describable {
         this.name = name;
     }
 
+    /**
+     * Sets the price of the product with validation.
+     * This method demonstrates proper error handling by throwing exceptions
+     * for invalid input rather than silently accepting bad data.
+     * 
+     * @param price The new price for the product
+     * @throws IllegalArgumentException if the price is negative
+     */
     public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative.");
+        }
         this.price = price;
     }
 

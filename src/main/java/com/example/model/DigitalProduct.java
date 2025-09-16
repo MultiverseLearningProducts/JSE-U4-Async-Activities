@@ -6,6 +6,8 @@ import com.example.contracts.Describable;
  * DigitalProduct class - Represents a digital product that extends the base Product class.
  * This class demonstrates inheritance by adding specialized fields and overriding methods.
  * It also implements the Describable interface, showing how interfaces work with inheritance.
+ * 
+ * This version includes robust error handling with exception throwing and validation.
  *
  * @author Student Developer
  * @version 1.0.0
@@ -31,12 +33,13 @@ public class DigitalProduct extends Product {
      * @param downloadUrl The URL from which the product can be downloaded.
      * @param fileType The type of the digital file (e.g., PDF, MP3).
      * @param fileSizeMB The size of the digital file in megabytes.
+     * @throws IllegalArgumentException if price is negative or fileSizeMB is negative
      */
     public DigitalProduct(String name, double price, String sku, String downloadUrl, String fileType, double fileSizeMB) {
         super(name, price, sku); // Calls the constructor of the Product parent class
         this.downloadUrl = downloadUrl;
         this.fileType = fileType;
-        this.fileSizeMB = fileSizeMB;
+        setFileSizeMB(fileSizeMB); // Use setter to ensure validation
     }
 
     // Getter for downloadUrl
@@ -64,8 +67,18 @@ public class DigitalProduct extends Product {
         return fileSizeMB;
     }
 
-    // Setter for fileSizeMB
+    /**
+     * Sets the file size in megabytes with validation.
+     * This method demonstrates proper error handling by throwing exceptions
+     * for invalid input rather than silently accepting bad data.
+     * 
+     * @param fileSizeMB The file size in megabytes
+     * @throws IllegalArgumentException if the file size is negative
+     */
     public void setFileSizeMB(double fileSizeMB) {
+        if (fileSizeMB < 0) {
+            throw new IllegalArgumentException("File size cannot be negative.");
+        }
         this.fileSizeMB = fileSizeMB;
     }
 
