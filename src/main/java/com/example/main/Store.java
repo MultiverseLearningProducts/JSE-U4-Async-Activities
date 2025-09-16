@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Store class - Demonstrates package organization, module system, and interface contracts.
  * This class shows how to use classes from different packages within a module,
- * and demonstrates the power of programming to interfaces.
+ * and demonstrates the power of programming to interfaces with modern Java features.
  * 
  * @author Student Developer
  * @version 1.0.0
@@ -21,8 +21,14 @@ public class Store {
      * @param args command line arguments (not used)
      */
     public static void main(String[] args) {
-        System.out.println("=== Interface Contracts and Describable Objects Demo ===");
-        System.out.println("Demonstrating how interfaces create formal contracts for behavior\n");
+        System.out.println("=== Modern Java Interface Features Demo ===");
+        System.out.println("Demonstrating default methods and static methods in interfaces\n");
+        
+        // Demonstrate static method call on interface
+        System.out.println("=== Static Method Demonstration ===");
+        System.out.println("Application Name: " + Describable.getApplicationName());
+        System.out.println("Header: " + Describable.getHeader());
+        System.out.println();
         
         // Create various Product and DigitalProduct objects
         Product laptop = new Product("Gaming Laptop", 1299.99, "LAP-001");
@@ -52,29 +58,37 @@ public class Store {
 
         System.out.println("Shopping cart now contains " + shoppingCart.size() + " items\n");
 
-        System.out.println("=== Interface Contract Demonstration ===");
-        System.out.println("All products implement the Describable interface, so we can treat them uniformly:\n");
+        System.out.println("=== Default Method Demonstration ===");
+        System.out.println("Using the default printDescription() method from the Describable interface:\n");
 
-        // Demonstrate interface contract - all items can be treated as Describable
+        // Demonstrate default method - all products automatically have this method
         int itemNumber = 1;
         for (Product item : shoppingCart) {
             System.out.println("--- Shopping Cart Item " + itemNumber++ + " ---");
-            System.out.println("Name: " + item.getName()); // From Describable interface
-            System.out.println("Description: " + item.getDescription()); // From Describable interface
-            System.out.println("Price: $" + item.getPrice());
-            System.out.println("SKU: " + item.getSku());
+            item.printDescription(); // Default method from interface
             System.out.println();
         }
 
-        System.out.println("=== Interface Benefits Demonstration ===");
-        System.out.println("Let's create a method that works with any Describable object:\n");
+        System.out.println("=== Enhanced Interface Features ===");
+        System.out.println("Demonstrating additional default methods:\n");
 
-        // Demonstrate programming to interfaces
-        demonstrateDescribableContract(laptop);
-        demonstrateDescribableContract(advancedJavaEbook);
+        // Demonstrate additional default methods
+        for (Product item : shoppingCart) {
+            System.out.println("Short Summary (50 chars): " + item.getShortSummary(50));
+            System.out.println("Short Summary (100 chars): " + item.getShortSummary(100));
+            System.out.println();
+        }
 
-        System.out.println("=== Processing the Shopping Cart with Interface Contract ===");
-        System.out.println("Using the Describable interface to process all items uniformly:\n");
+        System.out.println("=== Interface Evolution Benefits ===");
+        System.out.println("1. Default Methods: Add new functionality without breaking existing code");
+        System.out.println("2. Static Methods: Provide utility methods that belong to the interface");
+        System.out.println("3. Backward Compatibility: Existing implementations automatically get new features");
+        System.out.println("4. Optional Override: Classes can override default methods if needed");
+        System.out.println("5. Interface Utility: Static methods provide interface-level functionality");
+        System.out.println("6. Code Reuse: Default methods reduce code duplication\n");
+
+        System.out.println("=== Processing the Shopping Cart with Enhanced Interface ===");
+        System.out.println("Using both abstract and default methods from the Describable interface:\n");
 
         // Use a for-each loop to iterate through the shoppingCart and call interface methods
         itemNumber = 1;
@@ -86,16 +100,23 @@ public class Store {
             System.out.println("SKU: " + item.getSku());
             System.out.println("Type: " + (item instanceof DigitalProduct ? "Digital Product" : "Standard Product"));
             System.out.println("Description: " + item.getDescription());
+            System.out.println("Default Method Output:");
+            item.printDescription(); // Using the default method
             System.out.println();
         }
 
-        System.out.println("=== Interface Contract Benefits ===");
-        System.out.println("1. Formal Contracts: Interfaces define what methods must be implemented");
-        System.out.println("2. Polymorphism: Same interface, different implementations");
-        System.out.println("3. Flexibility: Easy to add new types that implement the interface");
-        System.out.println("4. Decoupling: Code depends on interface, not specific implementation");
-        System.out.println("5. Testability: Easy to create mock objects for testing");
-        System.out.println("6. Maintainability: Changes to implementation don't affect interface users\n");
+        System.out.println("=== Modern Java Features Comparison ===");
+        System.out.println("Traditional Interface Methods:");
+        System.out.println("  - Abstract methods: Must be implemented by all classes");
+        System.out.println("  - No default implementation provided");
+        System.out.println("  - Breaking changes when adding new methods");
+        System.out.println();
+        System.out.println("Modern Interface Methods (Java 8+):");
+        System.out.println("  - Abstract methods: Must be implemented by all classes");
+        System.out.println("  - Default methods: Optional implementation, can be overridden");
+        System.out.println("  - Static methods: Belong to interface, not instances");
+        System.out.println("  - Non-breaking evolution of interfaces");
+        System.out.println("  - Utility methods at interface level\n");
 
         // Calculate total cart value
         double totalCartValue = 0;
@@ -117,31 +138,19 @@ public class Store {
         System.out.println("Digital Products: " + digitalProductCount);
         System.out.println("Total Items: " + shoppingCart.size() + "\n");
 
-        System.out.println("=== Interface vs Class Comparison ===");
-        System.out.println("Classes:");
-        System.out.println("  - Define both behavior (methods) and state (fields)");
-        System.out.println("  - Can be instantiated");
-        System.out.println("  - Support inheritance");
-        System.out.println();
-        System.out.println("Interfaces:");
-        System.out.println("  - Define only behavior (method signatures)");
-        System.out.println("  - Cannot be instantiated");
-        System.out.println("  - Support multiple implementation");
-        System.out.println("  - Create contracts for behavior\n");
-
         System.out.println("=== Key Learning Points ===");
-        System.out.println("1. Interfaces define contracts that classes must fulfill");
-        System.out.println("2. Classes implement interfaces using the 'implements' keyword");
-        System.out.println("3. Interface methods must be implemented by the implementing class");
-        System.out.println("4. Programming to interfaces enables flexible, decoupled code");
-        System.out.println("5. Interfaces support polymorphism and multiple inheritance");
-        System.out.println("6. This is essential for building maintainable, testable applications");
+        System.out.println("1. Default methods allow interfaces to evolve without breaking existing code");
+        System.out.println("2. Static methods provide utility functionality at the interface level");
+        System.out.println("3. Classes automatically inherit default methods but can override them");
+        System.out.println("4. Static methods are called directly on the interface, not on instances");
+        System.out.println("5. This enables powerful interface evolution and code reuse");
+        System.out.println("6. Essential for building maintainable, evolvable software systems");
     }
 
     /**
-     * Demonstrates how to program to interfaces.
+     * Demonstrates how to program to interfaces with modern Java features.
      * This method accepts any object that implements Describable,
-     * showing the power of interface contracts.
+     * showing the power of interface contracts with default methods.
      * 
      * @param describable Any object that implements the Describable interface
      */
@@ -149,6 +158,8 @@ public class Store {
         System.out.println("=== Describable Contract Demonstration ===");
         System.out.println("Object Name: " + describable.getName());
         System.out.println("Object Description: " + describable.getDescription());
+        System.out.println("Default Method Output:");
+        describable.printDescription(); // Using the default method
         System.out.println("This method works with ANY object that implements Describable!");
         System.out.println();
     }
