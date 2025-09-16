@@ -1,4 +1,5 @@
-package com.example.model;
+// TODO: Add package declaration here
+// package com.example.model;
 
 /**
  * Product class - Represents a basic product in the store.

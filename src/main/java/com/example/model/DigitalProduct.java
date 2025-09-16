@@ -1,4 +1,5 @@
-package com.example.model;
+// TODO: Add package declaration here
+// package com.example.model;
 
 /**
  * DigitalProduct class - Represents a digital product that extends the base Product class.

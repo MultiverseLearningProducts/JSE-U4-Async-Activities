@@ -1,8 +1,10 @@
-package com.example.main;
+// TODO: Add package declaration here
+// package com.example.main;
 
-import com.example.model.Product;
-import com.example.model.DigitalProduct;
-import java.util.ArrayList;
+// TODO: Add import statements here
+// import com.example.model.Product;
+// import com.example.model.DigitalProduct;
+// import java.util.ArrayList;
 
 /**
  * Store class - Demonstrates package organization and imports.
@@ -22,6 +24,8 @@ public class Store {
         System.out.println("=== Professional Package Organization Demo ===");
         System.out.println("Demonstrating how packages organize code and prevent naming conflicts\n");
         
+        // TODO: Uncomment and fix the code below after adding proper imports
+        /*
         // Create various Product and DigitalProduct objects
         Product laptop = new Product("Gaming Laptop", 1299.99, "LAP-001");
         Product javaBook = new Product("Java Programming Guide", 49.99, "BOOK-001");
@@ -103,5 +107,12 @@ public class Store {
         System.out.println("3. Import statements make classes from other packages available");
         System.out.println("4. Package structure reflects the application architecture");
         System.out.println("5. Professional codebases always use packages");
+        */
+        
+        System.out.println("=== TODO: Complete the Package Organization Task ===");
+        System.out.println("1. Add package declarations to all Java files");
+        System.out.println("2. Add import statements to Store.java");
+        System.out.println("3. Uncomment and test the code above");
+        System.out.println("4. Ensure the application compiles and runs successfully");
     }
 }
