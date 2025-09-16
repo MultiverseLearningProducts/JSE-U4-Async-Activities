@@ -4,7 +4,7 @@
  * 
  * The module-info.java file defines:
  * - Module name: com.example.store
- * - Exported packages: com.example.model (public API)
+ * - Exported packages: com.example.model, com.example.contracts (public API)
  * - Dependencies: None (this is a simple standalone module)
  * 
  * @author Student Developer
@@ -14,6 +14,10 @@ module com.example.store {
     // Export the model package to make it available to other modules
     // This makes Product and DigitalProduct classes accessible from outside this module
     exports com.example.model;
+    
+    // Export the contracts package to make interfaces available to other modules
+    // This makes the Describable interface accessible from outside this module
+    exports com.example.contracts;
     
     // Note: com.example.main is not exported, which means Store class
     // is only accessible within this module (internal implementation)

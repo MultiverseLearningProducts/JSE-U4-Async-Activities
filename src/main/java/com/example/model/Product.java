@@ -1,13 +1,16 @@
 package com.example.model;
 
+import com.example.contracts.Describable;
+
 /**
  * Product class - Represents a basic product in the store.
  * This class demonstrates encapsulation with private fields and public getter/setter methods.
+ * It also implements the Describable interface, showing how interfaces create contracts.
  * 
  * @author Student Developer
  * @version 1.0.0
  */
-public class Product {
+public class Product implements Describable {
     private String name;
     private double price;
     private String sku;
@@ -59,6 +62,19 @@ public class Product {
     }
 
     /**
+     * Implementation of the Describable interface contract.
+     * Returns a detailed description of the product.
+     * 
+     * @return A formatted description of the product
+     */
+    @Override
+    public String getDescription() {
+        return String.format("A %s product with SKU %s, priced at $%.2f. " +
+                           "This is a standard physical product that can be shipped and delivered.",
+                           getName(), getSku(), getPrice());
+    }
+
+    /**
      * Method to display product information.
      * This method prints the product details to the console.
      */
@@ -68,6 +84,7 @@ public class Product {
         System.out.println("Price: $" + getPrice());
         System.out.println("SKU: " + getSku());
         System.out.println("Type: Standard Product");
+        System.out.println("Description: " + getDescription());
     }
 
     /**

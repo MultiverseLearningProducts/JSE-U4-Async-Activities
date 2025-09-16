@@ -1,8 +1,11 @@
 package com.example.model;
 
+import com.example.contracts.Describable;
+
 /**
  * DigitalProduct class - Represents a digital product that extends the base Product class.
  * This class demonstrates inheritance by adding specialized fields and overriding methods.
+ * It also implements the Describable interface, showing how interfaces work with inheritance.
  *
  * @author Student Developer
  * @version 1.0.0
@@ -64,6 +67,21 @@ public class DigitalProduct extends Product {
     // Setter for fileSizeMB
     public void setFileSizeMB(double fileSizeMB) {
         this.fileSizeMB = fileSizeMB;
+    }
+
+    /**
+     * Overrides the getDescription method from the Product class to provide
+     * a more specific description for digital products.
+     * This demonstrates how interfaces can be implemented differently by different classes.
+     * 
+     * @return A detailed description specific to digital products
+     */
+    @Override
+    public String getDescription() {
+        return String.format("A digital %s product with SKU %s, priced at $%.2f. " +
+                           "This is a %s file (%.1f MB) that can be downloaded instantly from %s. " +
+                           "Perfect for immediate access and convenience.",
+                           getName(), getSku(), getPrice(), getFileType(), getFileSizeMB(), getDownloadUrl());
     }
 
     /**
